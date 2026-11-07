@@ -1,0 +1,27 @@
+# Ground truth for the demo app. The issues were planted on purpose, so the
+# labels are known by construction; re-check them before quoting any numbers.
+pilot: sample_app
+status: verified          # only "verified" labels count towards accuracy
+labeled_by: construction
+cia:
+  confidentiality: High   # card numbers + credentials
+  integrity: High         # payments, admin export
+  availability: High      # design doc: 24/7 during campaigns
+controls:                 # expected worst status per control
+  V6.4.1: gap             # hard-coded secret key / payment key
+  V5.3.4: gap             # f-string SQL in /orders
+  V5.3.8: gap             # shell=True in /admin/export
+  V14.3.2: gap            # debug=True
+  V7.1.1: gap             # password in log line
+  V3.4.1: gap             # SESSION_COOKIE_SECURE = False
+  V5.3.3: gap             # | safe in profile template
+  V12.3.1: gap            # send_file with request name
+  V2.4.1: implemented     # generate_password_hash
+  "8.2": gap              # /admin/export has no auth at all
+  "8.15": implemented     # logging present
+  "5.34": needs_review    # email, phone number stored
+  V9.2.1: not_evidenced
+  V5.5.3: not_evidenced
+  MEASURE 2.7: not_evidenced
+manual_minutes: null      # fill in: minutes for a manual assessment of this repo
+review_minutes: null      # fill in: minutes to review AssessPilot's draft

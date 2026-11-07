@@ -1,0 +1,33 @@
+services:
+  assesspilot:
+    build: .
+    env_file: .env
+    volumes:
+      - assesspilot-data:/data
+    ports:
+      - "8000:8000"          # review page for humans: http://localhost:8000/runs/<id>/review
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+
+  n8n:
+    image: n8nio/n8n:1.80.0
+    environment:
+      - ASSESSPILOT_URL=http://assesspilot:8000
+      - ASSESSPILOT_PUBLIC_URL=http://localhost:8000
+      - ASSESSPILOT_API_KEY=${ASSESSPILOT_API_KEY}
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - WEBHOOK_URL=http://n8n:5678/
+      - N8N_SECURE_COOKIE=false
+      - GENERIC_TIMEZONE=Europe/Stockholm
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n-data:/home/node/.n8n
+      - ./n8n:/workflows:ro
+    depends_on: [assesspilot]
+
+volumes:
+  assesspilot-data:
+  n8n-data:

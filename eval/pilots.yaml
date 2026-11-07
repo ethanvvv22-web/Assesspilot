@@ -1,0 +1,30 @@
+# Open-source pilot solutions. Commits are pinned so results are reproducible.
+pilots:
+  - name: sample_app
+    source: examples/sample_app
+    docs: [examples/design.md]
+    note: Demo app with planted issues (ground truth known by construction).
+  - name: pygoat
+    source: https://github.com/adeyosemanputra/pygoat.git
+    ref: 2aa4cc14f251e4a780e94e200aed6b36a5b15c21
+    note: OWASP PyGoat, intentionally vulnerable Django app.
+  - name: dvpwa
+    source: https://github.com/anxolerd/dvpwa.git
+    ref: a1d8f89fac2e57093189853c6527c2b01fc1d9c1
+    note: Damn Vulnerable Python Web App (aiohttp + PostgreSQL).
+  - name: juice-shop
+    source: https://github.com/juice-shop/juice-shop.git
+    ref: 717f5efa886b0417eeecb52378b03cf10567b7e2
+    note: OWASP Juice Shop (Node/Express/Angular), large codebase.
+  - name: fastapi-template
+    source: https://github.com/fastapi/full-stack-fastapi-template.git
+    ref: aabb90126964a164e02aff39e7c385bb0598236d
+    note: Production-style template; checks false positives on well-built code.
+  - name: simply-vulnerable-notes
+    source: gitlab:gitlab-da/tutorials/security-and-governance/devsecops/simply-vulnerable-notes
+    ref: 632d9c83e5e6937c3695e6876cb4c0de2d1b9c51
+    note: Hosted on gitlab.com; read through the GitLab API.
+  - name: vuln-flask-web-app
+    source: gitlab:gitlab-org/secure/gsoc-sast-benchmark/baselines/vuln-flask-web-app
+    ref: b622a3257938a54e238b17558183a1c8287cd2c5
+    note: Hosted on gitlab.com; read through the GitLab API.

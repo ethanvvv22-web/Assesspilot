@@ -1,0 +1,431 @@
+{
+  "name": "AssessPilot - security assessment",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "assesspilot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Assessment request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "id": "9c402450-8cee-4552-904d-436902e3ac44",
+      "webhookId": "bbc54bd4-e711-4335-9c50-a8f8b2e170e2",
+      "notes": "POST {source, ref?, docs?}",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ source: $json.body.source, ref: $json.body.ref || null, docs: $json.body.docs || [] }) }}"
+      },
+      "name": "Ingest repository (read-only)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        300
+      ],
+      "id": "52243815-ea80-46dc-b69e-3dc1027eda8b",
+      "notes": "read-only token, secrets redacted, injection filtered",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/inventory",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "Inventory agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        300
+      ],
+      "id": "e565f5f7-3c4a-4286-9254-de8b1d6322a2",
+      "notes": "stack, data types, AI parts",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/cia",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "CIA classification agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        300
+      ],
+      "id": "d362d85c-c331-475c-8270-de6e496be7f2",
+      "notes": "C / I / A levels + evidence",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/controls",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "Control-mapping agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        300
+      ],
+      "id": "19b560de-7c90-4c57-b2b1-38a76be3555d",
+      "notes": "ISO 27001 / ASVS / NIST AI RMF",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/verify",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "Evidence verifier",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        300
+      ],
+      "id": "ef69bef6-d767-448e-a722-0c596978e698",
+      "notes": "drops claims whose quote is not in the code",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/draft",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ resume_url: $execution.resumeUrl }) }}"
+      },
+      "name": "Draft report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        300
+      ],
+      "id": "e1c1ccca-c1f8-46d9-bc6b-06c41a9eac85",
+      "notes": "status: awaiting_approval",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ run_id: $('Ingest repository (read-only)').item.json.run_id, status: 'awaiting_approval', review_url: $env.ASSESSPILOT_PUBLIC_URL + $json.review_url, evidence: $json.evidence }) }}",
+        "options": {}
+      },
+      "name": "Return review link",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1540,
+        300
+      ],
+      "id": "502a6440-b86d-42d1-a1ff-d0d21ca93625"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "limitWaitTime": true,
+        "limitType": "afterTimeInterval",
+        "resumeAmount": 7,
+        "resumeUnit": "days",
+        "options": {}
+      },
+      "name": "Wait for human decision",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        300
+      ],
+      "id": "b979d8b3-bd1c-4649-846a-1bef1336b8c0",
+      "webhookId": "1ff487cb-1e9b-43a5-bd5a-a021d9fa4ea8",
+      "notes": "resumed by AssessPilot after a reviewer signs off with the approver key",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "a704dde1-e81e-44c6-84e2-77e2f92d802e",
+              "leftValue": "={{ $json.body.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1980,
+        300
+      ],
+      "id": "d3186046-15b0-4b40-82b1-f2474f83d950"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.ASSESSPILOT_URL}}/runs/{{ $('Ingest repository (read-only)').item.json.run_id }}/publish",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "={{$env.ASSESSPILOT_API_KEY}}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "name": "Publish report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2200,
+        200
+      ],
+      "id": "eea247d9-5f45-4583-babe-3352ba425d40",
+      "notes": "server re-checks the recorded approval",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {},
+      "name": "Rejected: nothing published",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        420
+      ],
+      "id": "91a3ce40-0b20-4c37-b32d-ec552e2705c0"
+    }
+  ],
+  "connections": {
+    "Assessment request": {
+      "main": [
+        [
+          {
+            "node": "Ingest repository (read-only)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ingest repository (read-only)": {
+      "main": [
+        [
+          {
+            "node": "Inventory agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inventory agent": {
+      "main": [
+        [
+          {
+            "node": "CIA classification agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CIA classification agent": {
+      "main": [
+        [
+          {
+            "node": "Control-mapping agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Control-mapping agent": {
+      "main": [
+        [
+          {
+            "node": "Evidence verifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evidence verifier": {
+      "main": [
+        [
+          {
+            "node": "Draft report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft report": {
+      "main": [
+        [
+          {
+            "node": "Return review link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return review link": {
+      "main": [
+        [
+          {
+            "node": "Wait for human decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for human decision": {
+      "main": [
+        [
+          {
+            "node": "Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved?": {
+      "main": [
+        [
+          {
+            "node": "Publish report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected: nothing published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

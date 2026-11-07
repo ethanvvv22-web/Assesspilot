@@ -1,0 +1,48 @@
+pilot: simply-vulnerable-notes
+status: draft             # set to verified when every line is done
+labeled_by: null
+cia:
+  confidentiality: TODO
+  integrity: TODO
+  availability: TODO
+controls:
+  # ---- ISO27001 ----
+  "5.15": TODO   # Access control
+  "5.17": TODO   # Authentication information
+  "5.34": TODO   # Privacy and protection of PII
+  "8.2": TODO   # Privileged access rights
+  "8.5": TODO   # Secure authentication
+  "8.8": TODO   # Management of technical vulnerabilities
+  "8.9": TODO   # Configuration management
+  "8.12": TODO   # Data leakage prevention
+  "8.15": TODO   # Logging
+  "8.20": TODO   # Networks security
+  "8.24": TODO   # Use of cryptography
+  "8.25": TODO   # Secure development life cycle
+  "8.28": TODO   # Secure coding
+  # ---- ASVS ----
+  "V2.1.1": TODO   # User-set passwords are at least 12 characters long
+  "V2.4.1": TODO   # Passwords are stored using an approved, salted, adaptive hashing function
+  "V3.4.1": TODO   # Cookie-based session tokens have the Secure attribute set
+  "V3.4.2": TODO   # Cookie-based session tokens have the HttpOnly attribute set
+  "V4.1.1": TODO   # Access control rules are enforced on a trusted service layer
+  "V5.3.3": TODO   # Context-aware output escaping protects against reflected, stored and DOM-based XSS
+  "V5.3.4": TODO   # Database queries use parameterized queries, ORMs or are otherwise protected from injection
+  "V5.3.8": TODO   # The application protects against OS command injection
+  "V5.5.3": TODO   # Deserialization of untrusted data is avoided or protected
+  "V6.2.2": TODO   # Industry-proven or government-approved cryptographic algorithms are used
+  "V6.4.1": TODO   # A secrets management solution is used to create, store and control access to secrets
+  "V7.1.1": TODO   # The application does not log credentials or payment details
+  "V7.1.3": TODO   # The application logs security-relevant events
+  "V9.2.1": TODO   # Connections use trusted TLS certificates that are validated
+  "V12.3.1": TODO   # User-submitted filename metadata is not used directly by filesystems (path traversal)
+  "V14.3.2": TODO   # Web or application server and framework debug modes are disabled in production
+  "V14.5.3": TODO   # The CORS Access-Control-Allow-Origin header uses a strict allow list
+  # ---- NIST_AI_RMF ----
+  "GOVERN 1.1": TODO   # Legal and regulatory requirements involving AI are understood, managed and documented
+  "MAP 1.1": TODO   # Intended purposes, context and expected use of the AI system are understood and documented
+  "MEASURE 2.7": TODO   # AI system security and resilience are evaluated and documented
+  "MEASURE 2.10": TODO   # Privacy risk of the AI system is examined and documented
+  "MANAGE 4.1": TODO   # Post-deployment monitoring plans for the AI system are implemented
+manual_minutes: null
+review_minutes: null

@@ -1,0 +1,63 @@
+# 备注：data/payloads/ 因 Windows 文件名限制未解压，未评估
+# 开始 18：07
+
+# 手工评估表：vuln-flask-web-app
+# 把每个 TODO 换成下面四个词之一，并在同一行 # 后面写上依据的文件和行号，例如：
+#   V5.3.4: gap   # app.py:42 用字符串拼接 SQL
+#
+#   gap            有任何一处违反这项要求（一处就算）
+#   implemented    代码里能看到这项要求已做到，也没看到违反的地方
+#   needs_review   和这个项目有关，但只看代码判断不了
+#   not_evidenced  代码里找不到和这项相关的内容
+#
+# 搜索方法：VS Code 里按 Ctrl+Shift+F，粘贴"搜"后面的词
+pilot: vuln-flask-web-app
+status: draft             # 全部填完后改成 verified
+labeled_by: null          # 全部填完后写你的名字
+cia:                      # 每项填 Low / Medium / High，理由写在 # 后面
+  confidentiality: TODO   # 泄露后果多严重？有密码、个人信息、支付数据吗？
+  integrity: TODO         # 数据被篡改后果多严重？有写库、管理员功能、资金操作吗？
+  availability: TODO      # 服务挂了后果多严重？文档里写了可用性要求吗？没写通常不超过 Medium
+controls:
+  # ---- 身份与访问 ----
+  V2.1.1: TODO            # 注册时要求密码至少 12 位吗？ 搜：password  len(  length
+  V2.4.1: TODO            # 密码用 bcrypt/argon2/PBKDF2 存储吗？明文或 MD5 算 gap。 搜：password  hash  md5
+  V3.4.1: TODO            # 会话 cookie 设置了 Secure 吗？ 搜：SESSION_COOKIE  set_cookie  secure
+  V3.4.2: TODO            # 会话 cookie 设置了 HttpOnly 吗？ 搜：httponly
+  V4.1.1: TODO            # 敏感接口在服务器端检查登录/权限吗？ 搜：route  login_required  session
+  V6.4.1: TODO            # 密钥放在环境变量或密钥管理里吗？写死在代码里算 gap。 搜：secret  key  environ
+  "5.15": TODO            # 整体有访问控制吗？用户能否看到别人的数据？
+  "5.17": TODO            # 登录凭据（密码、token）的处理安全吗？
+  "8.2": TODO             # 管理员功能有单独的权限检查吗？ 搜：admin  role
+  "8.5": TODO             # 登录流程安全吗？（验证方式、失败处理）
+  # ---- 注入与输入处理 ----
+  V5.3.3: TODO            # 输出时转义了吗？ 搜：safe  Markup  render_template_string  innerHTML
+  V5.3.4: TODO            # SQL 用参数化或 ORM 吗？拼接字符串算 gap。 搜：execute  SELECT  query
+  V5.3.8: TODO            # 有用用户输入拼系统命令吗？ 搜：os.system  subprocess  popen
+  V5.5.3: TODO            # 有不安全的反序列化或 eval 吗？ 搜：pickle  yaml.load  eval(  exec(
+  V12.3.1: TODO           # 用户能控制文件路径吗？ 搜：open(  send_file  filename
+  "8.28": TODO            # 整体是安全编码吗？上面任一项是 gap，这里通常也是 gap
+  # ---- 加密、配置与开发流程 ----
+  V6.2.2: TODO            # 用了 MD5/SHA-1/DES 等弱算法吗？ 搜：md5  sha1  DES
+  V9.2.1: TODO            # 关闭了证书校验吗？ 搜：verify=False  CERT_NONE
+  V14.3.2: TODO           # 开了调试模式吗？ 搜：debug
+  V14.5.3: TODO           # CORS 允许任意来源吗？ 搜：CORS  Access-Control  origin
+  "8.8": TODO             # 有依赖漏洞扫描吗？看 CI 配置。 搜：dependabot  audit  scanning
+  "8.9": TODO             # 配置管理得当吗？比如调试模式、默认配置
+  "8.20": TODO            # 网络层安全吗？比如监听地址、证书校验、CORS
+  "8.24": TODO            # 正确使用加密了吗？弱算法、写死的密钥都算问题
+  "8.25": TODO            # 有安全开发流程吗？看 .gitlab-ci.yml 里有没有 SAST/测试
+  # ---- 日志与数据保护 ----
+  V7.1.1: TODO            # 日志里会记录密码或 token 吗？ 搜：log  print(  password
+  V7.1.3: TODO            # 记录了登录失败等安全事件吗？ 搜：logging  logger
+  "5.34": TODO            # 处理个人信息吗？有就至少是 needs_review。 搜：email  phone  address
+  "8.12": TODO            # 有敏感数据泄露的风险吗？比如错误信息、接口返回密码
+  "8.15": TODO            # 有日志功能吗？ 搜：logging  logger
+  # ---- AI 治理（先搜 openai  llm  langchain，没用 AI 的话这 5 项都填 not_evidenced）----
+  GOVERN 1.1: TODO
+  MAP 1.1: TODO
+  MEASURE 2.7: TODO
+  MEASURE 2.10: TODO
+  MANAGE 4.1: TODO
+manual_minutes: null      # 手工评估用了多少分钟（扣掉休息）
+review_minutes: null      # 审阅工具草稿用了多少分钟（第二步才填）

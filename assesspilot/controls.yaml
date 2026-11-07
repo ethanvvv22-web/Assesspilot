@@ -1,0 +1,46 @@
+# Curated control catalog used by AssessPilot.
+# Only controls listed here may appear in a report; anything else the model
+# produces is rejected by the output filter (see guardrails.validate_control_ids).
+#
+# IDs follow: ISO/IEC 27001:2022 Annex A, OWASP ASVS 4.0.3, NIST AI RMF 1.0.
+
+ISO27001:
+  "5.15": Access control
+  "5.17": Authentication information
+  "5.34": Privacy and protection of PII
+  "8.2": Privileged access rights
+  "8.5": Secure authentication
+  "8.8": Management of technical vulnerabilities
+  "8.9": Configuration management
+  "8.12": Data leakage prevention
+  "8.15": Logging
+  "8.20": Networks security
+  "8.24": Use of cryptography
+  "8.25": Secure development life cycle
+  "8.28": Secure coding
+
+ASVS:
+  "V2.1.1": User-set passwords are at least 12 characters long
+  "V2.4.1": Passwords are stored using an approved, salted, adaptive hashing function
+  "V3.4.1": Cookie-based session tokens have the Secure attribute set
+  "V3.4.2": Cookie-based session tokens have the HttpOnly attribute set
+  "V4.1.1": Access control rules are enforced on a trusted service layer
+  "V5.3.3": Context-aware output escaping protects against reflected, stored and DOM-based XSS
+  "V5.3.4": Database queries use parameterized queries, ORMs or are otherwise protected from injection
+  "V5.3.8": The application protects against OS command injection
+  "V5.5.3": Deserialization of untrusted data is avoided or protected
+  "V6.2.2": Industry-proven or government-approved cryptographic algorithms are used
+  "V6.4.1": A secrets management solution is used to create, store and control access to secrets
+  "V7.1.1": The application does not log credentials or payment details
+  "V7.1.3": The application logs security-relevant events
+  "V9.2.1": Connections use trusted TLS certificates that are validated
+  "V12.3.1": User-submitted filename metadata is not used directly by filesystems (path traversal)
+  "V14.3.2": Web or application server and framework debug modes are disabled in production
+  "V14.5.3": The CORS Access-Control-Allow-Origin header uses a strict allow list
+
+NIST_AI_RMF:
+  "GOVERN 1.1": Legal and regulatory requirements involving AI are understood, managed and documented
+  "MAP 1.1": Intended purposes, context and expected use of the AI system are understood and documented
+  "MEASURE 2.7": AI system security and resilience are evaluated and documented
+  "MEASURE 2.10": Privacy risk of the AI system is examined and documented
+  "MANAGE 4.1": Post-deployment monitoring plans for the AI system are implemented

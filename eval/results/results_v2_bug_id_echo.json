@@ -1,0 +1,187 @@
+{
+  "generated": "2026-11-06 20:15",
+  "runs_per_pilot": 3,
+  "results": {
+    "heuristic": {
+      "sample_app": {
+        "runs": 3,
+        "seconds_mean": 0.1,
+        "tokens_mean": 0,
+        "files": 7,
+        "citation_verified_rate": 1.0,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 1.0,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "High"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 1.0,
+        "cia_accuracy": 1,
+        "control_status_accuracy": 0.933,
+        "gap_precision": 1.0,
+        "gap_recall": 0.889,
+        "labelled_controls": 15,
+        "misses": {
+          "8.2": "expected gap, got needs_review"
+        }
+      },
+      "pygoat": {
+        "runs": 3,
+        "seconds_mean": 5.8,
+        "tokens_mean": 0,
+        "files": 368,
+        "citation_verified_rate": 1.0,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 1.0,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 1.0,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      },
+      "dvpwa": {
+        "runs": 3,
+        "seconds_mean": 0.3,
+        "tokens_mean": 0,
+        "files": 27,
+        "citation_verified_rate": 1.0,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 1.0,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "Medium",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 1.0,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      },
+      "juice-shop": {
+        "runs": 3,
+        "seconds_mean": 7.6,
+        "tokens_mean": 0,
+        "files": 400,
+        "citation_verified_rate": 1.0,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 1.0,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 1.0,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      },
+      "fastapi-template": {
+        "runs": 3,
+        "seconds_mean": 3.3,
+        "tokens_mean": 0,
+        "files": 215,
+        "citation_verified_rate": 1.0,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 1.0,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 1.0,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      }
+    },
+    "azure": {
+      "sample_app": {
+        "runs": 3,
+        "seconds_mean": 283.5,
+        "tokens_mean": 49835,
+        "files": 7,
+        "citation_verified_rate": 0.974,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 0.839,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "High"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 0.333,
+        "cia_accuracy": 1,
+        "control_status_accuracy": 0.378,
+        "gap_precision": 1.0,
+        "gap_recall": 0.259,
+        "labelled_controls": 15,
+        "misses": {
+          "V6.4.1": "expected gap, got not_evidenced",
+          "V5.3.4": "expected gap, got not_evidenced",
+          "V5.3.8": "expected gap, got not_evidenced",
+          "V14.3.2": "expected gap, got not_evidenced",
+          "V7.1.1": "expected gap, got not_evidenced",
+          "V3.4.1": "expected gap, got not_evidenced",
+          "V5.3.3": "expected gap, got not_evidenced",
+          "V12.3.1": "expected gap, got not_evidenced",
+          "V2.4.1": "expected implemented, got not_evidenced",
+          "8.2": "expected gap, got not_evidenced",
+          "8.15": "expected implemented, got not_evidenced",
+          "5.34": "expected needs_review, got not_evidenced"
+        }
+      },
+      "pygoat": {
+        "runs": 2,
+        "seconds_mean": 293.1,
+        "tokens_mean": 215620,
+        "files": 368,
+        "citation_verified_rate": 0.982,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 0.333,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 0.667,
+        "finding_jaccard": 1.0,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      },
+      "dvpwa": {
+        "runs": 3,
+        "seconds_mean": 223.8,
+        "tokens_mean": 95045,
+        "files": 27,
+        "citation_verified_rate": 0.975,
+        "supported_finding_rate": 1.0,
+        "valid_control_id_rate": 0.384,
+        "cia_predicted": {
+          "confidentiality": "High",
+          "integrity": "High",
+          "availability": "Medium"
+        },
+        "uncited_claims_mean": 0,
+        "cia_agreement": 1,
+        "finding_jaccard": 0.649,
+        "accuracy_note": "no verified labels; accuracy not computed"
+      }
+    }
+  },
+  "failed_runs": [
+    {
+      "backend": "azure",
+      "pilot": "pygoat",
+      "run": 3,
+      "error": "Azure OpenAI call failed: Connection error."
+    }
+  ]
+}
